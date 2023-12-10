@@ -18,7 +18,7 @@ def get_curret_UIstate():
 def update_textes(start=False):
     UIstate = get_curret_UIstate()
     valid_answers = UIstate['valid-answers']
-    answers_amount = min(len(valid_answers), 4)
+    answers_amount = min(len(valid_answers), 6)
     answer_button_amount = 0
 
     for id, text in enumerate(all_textes):
@@ -101,10 +101,12 @@ if __name__ == '__main__':
     text_button2 = StringVar()
     text_button3 = StringVar()
     text_button4 = StringVar()
+    text_button5 = StringVar()
+    text_button6 = StringVar()
     text_button_back = StringVar()
     text_question = StringVar()
 
-    all_textes = [text_button1, text_button2, text_button3, text_button4 ]
+    all_textes = [text_button1, text_button2, text_button3, text_button4 ,text_button5, text_button6]
 
     file = open('asnwers.txt', 'r')
     data = file.readlines()
@@ -125,12 +127,12 @@ if __name__ == '__main__':
     button_ans2 = Button(root, textvariable=text_button2, width=90, padx=2, pady=2, command=lambda: ans_button_command(1), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
     button_ans3 = Button(root, textvariable=text_button3, width=90, padx=2, pady=2, command=lambda: ans_button_command(2), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
     button_ans4 = Button(root, textvariable=text_button4, width=90, padx=2, pady=2, command=lambda: ans_button_command(3), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
-
-    #mb need to add more buttons
+    button_ans5 = Button(root, textvariable=text_button3, width=90, padx=2, pady=2, command=lambda: ans_button_command(4), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
+    button_ans6 = Button(root, textvariable=text_button4, width=90, padx=2, pady=2, command=lambda: ans_button_command(5), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
 
     button_back = Button(root, textvariable=text_button_back, width=90, padx=2, pady=2, command=lambda: back_button_command(), borderwidth=4, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
 
-    all_buttons = [button_ans1, button_ans2, button_ans3, button_ans4 ]
+    all_buttons = [button_ans1, button_ans2, button_ans3, button_ans4 , button_ans5, button_ans6]
 
     question.grid(row=0, column=0)
     empty_space.grid(row=1, column=0)
