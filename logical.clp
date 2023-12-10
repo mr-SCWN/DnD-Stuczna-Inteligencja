@@ -31,12 +31,44 @@
                     (state initial)
                     (valid-answers))))
 
+
+
+
+
+
+
 ;;;***************
 ;;;* QUERY RULES *
 ;;;***************
 
+(defrule choose_start_question ""
+    (logical (start))
 
+    =>
 
+    (assert (UI-state (display StartMessage)
+                      (relation-asserted start_Q)
+                      (valid-answers GoOnAdventures LordOfTheRing SpecialSnowflake DontLikeFantasy)))
+)
+
+(defrule choose_dont_like_fantasy ""
+    (logical (start_Q DontLikeFantasy))
+
+    =>
+
+    (assert (UI-state (display DontLikeFantasyMessage)
+                      (relation-asserted dontPlayDND)
+                      (valid-answers vampire_ans)))
+)
+
+(defrule choose_dont_play_DND ""
+    (logical (dontPlayDND vampire_ans))
+
+    =>
+
+    (assert (UI-state (display DontPlayDNDMessage)
+                      (state final)))
+)
 
 
 
