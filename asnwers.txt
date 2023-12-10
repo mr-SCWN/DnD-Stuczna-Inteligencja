@@ -1,0 +1,9 @@
+WelcomeMessage=I wanna play Dungeons & Dragons       //delete comments after
+StartMessage=Why do you wanna play?                  //Message - blocks of questions
+DontLikeFantasyMessage=You don't want play DnD
+DontPlayDNDMessage=Now you are vampyre              //END OF MESSAGES
+GoOnAdventures=I wanna go on adventures             // Start of answers
+LordOfTheRing=Can I be someone from Lord of The Ring
+SpecialSnowflake=I want to be a special snowflake
+DontLikeFantasy=I don't like fantasy
+vampire_ans=Elves are dumb                         //END OF ANSWERS
