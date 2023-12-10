@@ -18,7 +18,7 @@ def get_curret_UIstate():
 def update_textes(start=False):
     UIstate = get_curret_UIstate()
     valid_answers = UIstate['valid-answers']
-    answers_amount = min(len(valid_answers), 4)  # Ограничиваем количество кнопок четырьмя
+    answers_amount = min(len(valid_answers), 4)
     answer_button_amount = 0
 
     for id, text in enumerate(all_textes):
@@ -47,7 +47,7 @@ def update_textes(start=False):
         if state == 'final':
             question.configure(font='Helvetica 18 bold', relief=GROOVE, padx=10, pady=10, fg='#e9736a', bd=3)
         else:
-            question.configure(textvariable=text_question, padx=1, pady=7, bg='#F5F5DC', fg='#0099cc', font='Helvetica 12 bold', bd=1, relief=FLAT)
+            question.configure(textvariable=text_question, padx=1, pady=7, bg='#F5F5DC', fg='#FFA500', font='Helvetica 12 bold', bd=1, relief=FLAT)
 
     if not start:
         question.grid(row=0, column=0, columnspan=answers_amount + 1)
@@ -118,7 +118,7 @@ if __name__ == '__main__':
 
     root.title('What Race Should I Play')
 
-    question = Label(root, textvariable=text_question, pady=7, bg='#F5F5DC', fg='#77a761', font='Helvetica 12 bold')
+    question = Label(root, textvariable=text_question, pady=7, bg='#F5F5DC', fg='#FFA500', font='Helvetica 12 bold')
     empty_space = Label(root, text='', bg='#F5F5DC', height=2)
 
     button_ans1 = Button(root, textvariable=text_button1, width=90, padx=2, pady=2, command=lambda: ans_button_command(0), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
