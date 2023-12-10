@@ -18,7 +18,7 @@ def get_curret_UIstate():
 def update_textes(start=False):
     UIstate = get_curret_UIstate()
     valid_answers = UIstate['valid-answers']
-    answers_amount = min(len(valid_answers), 6)
+    answers_amount = len(valid_answers)
     answer_button_amount = 0
 
     for id, text in enumerate(all_textes):
@@ -127,8 +127,8 @@ if __name__ == '__main__':
     button_ans2 = Button(root, textvariable=text_button2, width=90, padx=2, pady=2, command=lambda: ans_button_command(1), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
     button_ans3 = Button(root, textvariable=text_button3, width=90, padx=2, pady=2, command=lambda: ans_button_command(2), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
     button_ans4 = Button(root, textvariable=text_button4, width=90, padx=2, pady=2, command=lambda: ans_button_command(3), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
-    button_ans5 = Button(root, textvariable=text_button3, width=90, padx=2, pady=2, command=lambda: ans_button_command(4), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
-    button_ans6 = Button(root, textvariable=text_button4, width=90, padx=2, pady=2, command=lambda: ans_button_command(5), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
+    button_ans5 = Button(root, textvariable=text_button5, width=90, padx=2, pady=2, command=lambda: ans_button_command(4), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
+    button_ans6 = Button(root, textvariable=text_button6, width=90, padx=2, pady=2, command=lambda: ans_button_command(5), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
 
     button_back = Button(root, textvariable=text_button_back, width=90, padx=2, pady=2, command=lambda: back_button_command(), borderwidth=4, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
 
