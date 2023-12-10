@@ -43,9 +43,7 @@
 
 (defrule choose_start_question ""
     (logical (start))
-
     =>
-
     (assert (UI-state (display StartMessage)
                       (relation-asserted start_Q)
                       (valid-answers GoOnAdventures LordOfTheRing SpecialSnowflake DontLikeFantasy)))
@@ -53,9 +51,7 @@
 
 (defrule choose_dont_like_fantasy ""
     (logical (start_Q DontLikeFantasy))
-
     =>
-
     (assert (UI-state (display DontLikeFantasyMessage)
                       (relation-asserted dontPlayDND)
                       (valid-answers vampire_ans)))
@@ -63,22 +59,57 @@
 
 (defrule choose_dont_play_DND ""
     (logical (dontPlayDND vampire_ans))
-
     =>
-
     (assert (UI-state (display DontPlayDNDMessage)
                       (state final)))
 )
 
+(defrule choose_special_hero ""
+    (logical (or
+        (start_Q GoOnAdventures)
+        (DarkWhiteDude DarkWhiteDude_yes)
+        (Dragon Dragon_no)))
+    =>
+    (assert (UI-state (display SpecialHeroMessage)
+                      (relation-asserted SpecialHero)
+                      (valid-answers ElfOrSmth SwordAndMagic)))
+)
 
+(defrule choose_classic_fantasy ""
+    (logical (or
+        (start_Q LordOfTheRing)
+        (SpecialHero ElfOrSmth)))
+    =>
+    (assert (UI-state (display ClassicFantasyMessage)
+                      (relation-asserted ClassicFantasy)
+                      (valid-answers SmthDiffrent MeToo)))
+)
 
+(defrule choose_what_makes_special ""
+    (logical (or
+        (start_Q SpecialSnowflake)
+        (ClassicFantasy SmthDiffrent)))
+    =>
+    (assert (UI-state (display WhatMakesSpecialMessage)
+                      (relation-asserted WhatMakesSpecial)
+                      (valid-answers NoTrue WantToBeDragon NotElfDwarfETC)))
+)
 
+(defrule choose_how_dark ""
+    (logical (WhatMakesSpecial NoTrue))
+    =>
+    (assert (UI-state (display DarkWhiteDudeMessage)
+                      (relation-asserted DarkWhiteDude )
+                      (valid-answers DarkWhiteDude_yes DarkWhiteDude_no)))
+)
 
-
-
-
-
-
+(defrule choose_dragon ""
+    (logical (WhatMakesSpecial WantToBeDragon))
+    =>
+    (assert (UI-state (display DragonMessage)
+                      (relation-asserted Dragon )
+                      (valid-answers Dragon_yes Dragon_no)))
+)
 
 ;;;*************************
 ;;;* GUI INTERACTION RULES *
