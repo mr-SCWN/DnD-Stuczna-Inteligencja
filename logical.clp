@@ -124,7 +124,7 @@
     (logical (or
         (PickColor YAY)
         (CloseEnough OkayFine)
-        (KindOfScales ChooseDragon)))
+        (TedCruz ChooseDragon)))
     =>
     (assert (UI-state (display DragonbornMessage)
                       (relation-asserted Dragonborn)
@@ -306,6 +306,405 @@
     (assert (UI-state (display furryMessage)
                       (relation-asserted furry)
                       (valid-answers MoreHorse BirdsCool OwO Scalie)))
+)
+
+(defrule answer_Changelings ""
+    (logical (UncommonRaces Doppelganger))
+    =>
+     (assert (UI-state (display ChangelingsMessage)
+                      (relation-asserted Changelings)
+                      (state final)))
+)
+
+(defrule answer_Warforged ""
+    (logical (UncommonRaces BeepBoopBop))
+    =>
+     (assert (UI-state (display WarforgedMessage)
+                      (relation-asserted Warforged)
+                      (state final)))
+)
+
+(defrule answer_Triton ""
+    (logical (UncommonRaces DCsuperhero))
+    =>
+     (assert (UI-state (display TritonMessage)
+                      (relation-asserted Triton)
+                      (valid-answers MoreElfy)
+                      (state final)))
+)
+
+(defrule answer_SeaElf ""
+    (logical (or (Triton MoreElfy)
+        (WhatsTheProblem Mermalds)))
+    =>
+     (assert (UI-state (display SeaElfMessage)
+                      (relation-asserted SeaElf)
+                      (state final)))
+)
+
+(defrule answer_Aasimar ""
+    (logical (UncommonRaces MissionFromGod))
+    =>
+     (assert (UI-state (display AasimarMessage)
+                      (relation-asserted Aasimar)
+                      (valid-answers Tieflings)
+                      (state final)))
+)
+
+(defrule choose_KindOfAngel ""
+    (logical (Aasimar Tieflings))
+    =>
+    (assert (UI-state (display KindOfAngelMessage)
+                      (relation-asserted KindOfAngel)
+                      (valid-answers Goodness NameIsLord BadAngel)))
+)
+
+(defrule answer_Protector ""
+    (logical (KindOfAngel Goodness))
+    =>
+     (assert (UI-state (display ProtectorMessage)
+                      (relation-asserted Protector)
+                      (state final)))
+)
+
+(defrule answer_Scourge ""
+    (logical (KindOfAngel NameIsLord))
+    =>
+     (assert (UI-state (display ScourgeMessage)
+                      (relation-asserted Scourge )
+                      (state final)))
+)
+
+(defrule answer_Fallen ""
+    (logical (or (KindOfAngel BadAngel) (Edgelord FallenFromGrace)))
+    =>
+     (assert (UI-state (display FallenMessage)
+                      (relation-asserted Fallen)
+                      (state final)))
+)
+
+(defrule choose_PeopleMisunderstand ""
+    (logical (KindOfMonstrous NoOneGetsMe))
+    =>
+    (assert (UI-state (display PeopleMisunderstandnMessage)
+                      (relation-asserted PeopleMisunderstand)
+                      (valid-answers IamTheDark Parents LookLikeADevil LizardPerson)))
+)
+
+(defrule answer_HalfOrc ""
+    (logical (or (PeopleMisunderstand Parents)
+               (orc IDontWant)
+               (PartOfMonster Nuanced)
+               (HalfMonster MonsterBlood)))
+    =>
+    (assert (UI-state (display HalfOrcMessage)
+                      (relation-asserted HalfOrc)
+                      (state final)))
+)
+
+(defrule answer_TieFling ""
+    (logical (PeopleMisunderstand LookLikeADevil))
+    =>
+    (assert (UI-state (display TieFlingMessage)
+                      (relation-asserted TieFling)
+                      (state final)))
+)
+
+(defrule choose_TedCruz ""
+    (logical (or (PeopleMisunderstand LizardPerson) (furry Scalie)))
+    =>
+    (assert (UI-state (display TedCruzMessage)
+                      (relation-asserted TedCruz)
+                      (valid-answers GeneralReptiles Snek ChooseDragon)))
+)
+
+(defrule answer_lizardfolk ""
+     (logical (TedCruz GeneralReptiles))
+     =>
+     (assert (UI-state (display lizardfolkMessage)
+                      (relation-asserted lizardfolk)
+                      (state final)))
+)
+
+(defrule answer_human ""
+    (logical (SpecialHero SwordAndMagic))
+    =>
+    (assert (UI-state (display humanMessage)
+                      (relation-asserted human)
+                      (valid-answers WAAAAAIIIIT)
+                      (state final)))
+
+)
+
+(defrule choose_whatisit ""
+    (logical (human WAAAAAIIIIT))
+    =>
+    (assert (UI-state (display whatisitMessage)
+                      (relation-asserted whatisit)
+                      (valid-answers IsLame)))
+)
+
+(defrule choose_HalfMonster ""
+    (logical (whatisit IsLame))
+    =>
+    (assert (UI-state (display HalfMonsterMessage)
+                      (relation-asserted HalfMonster)
+                      (valid-answers MagicalPretty MonsterBlood )))
+)
+
+(defrule answer_halfelf ""
+    (logical (or (HalfMonster MagicalPretty) (WhatsTheProblem KindOfElfy)))
+    =>
+    (assert (UI-state (display halfelfMessage)
+                      (relation-asserted halfelf)
+                      (state final)))
+)
+
+(defrule choose_Edgelord ""
+    (logical (PeopleMisunderstand IamTheDark))
+    =>
+    (assert (UI-state (display EdgelordMessage)
+                      (relation-asserted Edgelord)
+                      (valid-answers MeanDwarfness ElfDark FallenFromGrace )))
+)
+
+(defrule answer_duegar ""
+    (logical (or (Edgelord MeanDwarfness) (HillsOrStronger IamAngry)))
+    =>
+    (assert (UI-state (display duegarMessage)
+                      (relation-asserted duegar)
+                      (state final)))
+)
+
+(defrule answer_Drow ""
+    (logical (or (Edgelord ElfDark) (WhatsTheProblem DarkAndBrooding)))
+    =>
+    (assert (UI-state (display DrowMessage)
+                      (relation-asserted Drow)
+                      (valid-answers MoreDark)
+                      (state final)))
+)
+
+(defrule answer_ShadarKai ""
+    (logical (Drow MoreDark))
+    =>
+    (assert (UI-state (display ShadarKaiMessage)
+                      (relation-asserted ShadarKai)
+                      (state final)))
+)
+
+(defrule choose_HumanSized ""
+    (logical (ClassicFantasy MeToo))
+    =>
+    (assert (UI-state (display HumanSizedMessage)
+                      (relation-asserted HumanSized)
+                      (valid-answers KidSize NoPedo BigSize)))
+)
+
+(defrule choose_StronkMen ""
+    (logical (or (HumanSized BigSize) (LessClassic Giant)))
+    =>
+    (assert (UI-state (display StronkMenMessage)
+                      (relation-asserted StronkMen)
+                      (valid-answers BeGentl Mooscles)))
+)
+
+(defrule answer_firbolg ""
+    (logical (StronkMen BeGentl))
+    =>
+    (assert (UI-state (display firbolgMessage)
+                      (relation-asserted firbolg)
+                      (state final)))
+)
+
+(defrule answer_goliath ""
+    (logical (or (StronkMen Mooscles) (Dwarf NotShort)))
+    =>
+    (assert (UI-state (display goliathMessage)
+                      (relation-asserted goliath)
+                      (state final)))
+)
+
+(defrule choose_nPrettynSwole ""
+    (logical (HumanSized NoPedo))
+    =>
+    (assert (UI-state (display nPrettynSwoleMessage)
+                      (relation-asserted nPrettynSwole)
+                      (valid-answers FeelPretty LiftBro DontLikeOPT)))
+)
+
+(defrule choose_LessClassic ""
+    (logical (nPrettynSwole DontLikeOPT))
+    =>
+    (assert (UI-state (display LessClassicMessage)
+                      (relation-asserted LessClassic)
+                      (valid-answers Giant NoProblem)))
+)
+
+(defrule answer_Dwarf ""
+    (logical (nPrettynSwole LiftBro))
+    =>
+    (assert (UI-state (display DwarfMessage)
+                      (relation-asserted Dwarf)
+                      (valid-answers NotShort TimeToDrink)
+                      (state final)))
+)
+
+(defrule choose_HillsOrStronger ""
+    (logical (Dwarf TimeToDrink))
+    =>
+    (assert (UI-state (display HillsOrStrongerMessage)
+                      (relation-asserted HillsOrStronger)
+                      (valid-answers HardynHilly StoneisStrength IamAngry ) ))
+)
+
+(defrule answer_HillDwarf
+    (logical (HillsOrStronger HardynHilly))
+    =>
+    (assert (UI-state (display HillDwarfMessage)
+                      (relation-asserted HillDwarf)
+                      (state final) ))
+)
+
+(defrule answer_MountainDwarf
+    (logical (HillsOrStronger StoneisStrength))
+    =>
+    (assert (UI-state (display MountainDwarfMessage)
+                      (relation-asserted MountainDwarf)
+                      (state final) ))
+)
+
+(defrule answer_Elf ""
+    (logical (nPrettynSwole FeelPretty))
+    =>
+        (assert (UI-state (display ElfMessage)
+                      (relation-asserted Elf)
+                      (valid-answers ImDone)
+                      (state final)))
+)
+
+(defrule choose_GetsComplicated ""
+    (logical (Elf ImDone))
+    =>
+    (assert (UI-state (display GetsComplicatedMessage)
+                      (relation-asserted GetsComplicated)
+                      (valid-answers MadeOfMagic TreeHuggers NoneOfThis)))
+)
+
+(defrule answer_HighElf ""
+    (logical (GetsComplicated MadeOfMagic))
+    =>
+    (assert (UI-state (display HighElfMessage)
+                      (relation-asserted HighElf)
+                      (state final)))
+)
+
+(defrule answer_WoodElf ""
+    (logical (GetsComplicated TreeHuggers))
+    =>
+    (assert (UI-state (display WoodElfMessage)
+                      (relation-asserted WoodElf)
+                      (state final)))
+)
+
+(defrule choose_WhatsTheProblem ""
+    (logical (GetsComplicated NoneOfThis))
+    =>
+    (assert (UI-state (display WhatsTheProblemMessage)
+                      (relation-asserted WhatsTheProblem)
+                      (valid-answers ElvesFaeries Mermalds KindOfElfy DarkAndBrooding)))
+
+)
+
+(defrule answer_Eladrin ""
+    (logical (WhatsTheProblem ElvesFaeries))
+    =>
+    (assert (UI-state (display EladrinMessage)
+                      (relation-asserted Eladrin)
+                      (state final)))
+)
+
+(defrule choose_ExtremelySilly ""
+    (logical (HumanSized KidSize))
+    =>
+    (assert (UI-state (display ExtremelySillyMessage)
+                      (relation-asserted ExtremelySilly)
+                      (valid-answers Gravitas MagicGlitter DarkHumor)))
+)
+
+(defrule answer_halfling ""
+    (logical (ExtremelySilly Gravitas))
+    =>
+    (assert (UI-state (display halflingMessage)
+                      (relation-asserted halfling)
+                      (valid-answers offBrandHobbit)
+                      (state final)))
+)
+
+(defrule choosing_DwarfyOrNumble ""
+    (logical (halfling offBrandHobbit))
+    =>
+    (assert (UI-state (display DwarfyOrNumbleMessage)
+                      (relation-asserted DwarfyOrNumble)
+                      (valid-answers Hardy Nimble)))
+)
+
+(defrule answer_stout ""
+    (logical (DwarfyOrNumble Hardy))
+    =>
+    (assert (UI-state (display stoutMessage)
+                      (relation-asserted stout)
+                      (state final)))
+)
+
+(defrule answer_lightfoot ""
+    (logical (DwarfyOrNumble Nimble))
+    =>
+    (assert (UI-state (display lightfootMessage)
+                      (relation-asserted lightfoot)
+                      (state final)))
+)
+
+(defrule answer_gnome ""
+    (logical (ExtremelySilly MagicGlitter))
+    =>
+    (assert (UI-state (display gnomeMessage)
+                      (relation-asserted gnome)
+                      (valid-answers MagicHobbit)
+                      (state final)))
+)
+
+(defrule choosing_Trickster ""
+    (logical (gnome MagicHobbit))
+    =>
+    (assert (UI-state (display TricksterMessage)
+                      (relation-asserted Trickster )
+                      (valid-answers Mushroom Toys) ))
+)
+
+(defrule answer_ForestGnome ""
+    (logical (Trickster Mushroom))
+    =>
+    (assert (UI-state (display ForestGnomeMessage)
+                      (relation-asserted ForestGnome)
+                      (state final)))
+)
+
+(defrule answer_MountainGnome ""
+    (logical (Trickster Toys))
+    =>
+    (assert (UI-state (display MountainGnomeMessage)
+                      (relation-asserted MountainGnome)
+                      (valid-answers GoDeeper)
+                      (state final)))
+)
+
+(defrule answer_DeepGnome ""
+    (logical (MountainGnome GoDeeper))
+    =>
+    (assert (UI-state (display DeepGnomeMessage)
+                      (relation-asserted DeepGnome)
+                      (state final)))
 )
 
 (defrule answer_centaur ""
@@ -526,6 +925,7 @@
                       (relation-asserted BanningYou)
                       (state final)))
 )
+
 
 
 ;;;*************************
