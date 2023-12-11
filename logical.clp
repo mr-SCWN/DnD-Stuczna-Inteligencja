@@ -298,7 +298,15 @@
                       (valid-answers Nuanced HundredPercent)))
 )
 
-
+(defrule choose_furry ""
+    (logical
+        (or (AnimalPerson LikeFurry)
+            (UncommonRaces AnimalPersonQuestion) ))
+    =>
+    (assert (UI-state (display furryMessage)
+                      (relation-asserted furry)
+                      (valid-answers MoreHorse BirdsCool OwO Scalie)))
+)
 
 
 ;;;*************************
