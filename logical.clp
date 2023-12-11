@@ -308,6 +308,225 @@
                       (valid-answers MoreHorse BirdsCool OwO Scalie)))
 )
 
+(defrule answer_centaur ""
+    (logical (furry MoreHorse))
+    =>
+    (assert (UI-state (display CentaurMessage)
+                      (relation-asserted Centaur)
+                      (state final)))
+)
+
+(defrule choose_fursona ""
+    (logical (furry OwO))
+    =>
+    (assert (UI-state (display fursonaMessage)
+                      (relation-asserted fursona)
+                      (valid-answers Cat Cow Elephant None)))
+)
+
+(defrule answer_tabaxi ""
+    (logical (fursona Cat))
+    =>
+    (assert (UI-state (display TabaxiMessage)
+                      (relation-asserted Tabaxi)
+                      (state final)))
+)
+
+(defrule answer_minotaur ""
+    (logical (fursona Cow))
+    =>
+    (assert (UI-state (display MinotaurMessage)
+                      (relation-asserted Minotaur)
+                      (state final)))
+)
+
+(defrule answer_loxadon ""
+    (logical (fursona Elephant))
+    =>
+    (assert (UI-state (display LoxadonMessage)
+                      (relation-asserted Loxadon)
+                      (state final)))
+)
+
+(defrule answer_shifter ""
+    (logical (fursona None))
+    =>
+    (assert (UI-state (display ShifterMessage)
+                      (relation-asserted Shifter)
+                      (state final)))
+)
+
+(defrule choose_EagleOrCorvid ""
+    (logical (furry BirdsCool))
+    =>
+    (assert (UI-state (display EagleOrCorvidMessage)
+                      (relation-asserted EagleOrCorvid)
+                      (valid-answers WannaSoar CawCaw)))
+)
+
+(defrule answer_aarakocra ""
+    (logical (EagleOrCorvid WannaSoar))
+    =>
+    (assert (UI-state (display AarakocraMessage)
+                      (relation-asserted Aarakocra)
+                      (state final)))
+)
+
+(defrule answer_kenku ""
+    (logical (EagleOrCorvid CawCaw))
+    =>
+    (assert (UI-state (display KenkuMessage)
+                      (relation-asserted Kenku)
+                      (state final)))
+)
+
+(defrule choose_ParentGenie ""
+    (logical (WeirdWeirds WeirdWeirdsYes))
+    =>
+    (assert (UI-state (display ParentGenieMessage)
+                      (relation-asserted ParentGenie)
+                      (valid-answers YeahThatWorks WillSmith)))
+)
+
+(defrule choose_MultiverseDwelling ""
+    (logical (ParentGenie WillSmith))
+    =>
+    (assert (UI-state (display MultiverseDwellingMessage)
+                      (relation-asserted MultiverseDwelling)
+                      (valid-answers OkayThatsPretty UglyElves)))
+)
+
+(defrule choose_HairlessVulcan ""
+    (logical (MultiverseDwelling UglyElves))
+    =>
+    (assert (UI-state (display HairlessVulcanMessage)
+                      (relation-asserted HairlessVulcan)
+                      (valid-answers Fine SpaceElves)))
+)
+
+(defrule choose_TentaclesAndMutations ""
+    (logical (HairlessVulcan SpaceElves))
+    =>
+    (assert (UI-state (display TentaclesAndMutationsMessage)
+                      (relation-asserted TentaclesAndMutations)
+                      (valid-answers ThisIsWhatImTalkingAbout Mysterious)))
+)
+
+(defrule answer_genasi ""
+    (logical (ParentGenie YeahThatWorks))
+    =>
+    (assert (UI-state (display GenasiMessage)
+                      (relation-asserted Genasi)
+                      (valid-answers CaptainPlanet)
+                      (state final)))
+)
+
+(defrule choose_GeniesAreElemental ""
+    (logical (Genasi CaptainPlanet))
+    =>
+    (assert (UI-state (display GeniesAreElementalMessage)
+                      (relation-asserted GeniesAreElemental)
+                      (valid-answers OneRealChoice RockHard WeAllFloat Aquaman)))
+)
+
+(defrule answer_FireGenasi ""
+    (logical (GeniesAreElemental OneRealChoice))
+    =>
+    (assert (UI-state (display FireGenasiMessage)
+                      (relation-asserted FireGenasi)
+                      (state final)))
+)
+
+(defrule answer_EarthGenasi ""
+    (logical (GeniesAreElemental RockHard))
+    =>
+    (assert (UI-state (display EarthGenasiMessage)
+                      (relation-asserted EarthGenasi)
+                      (state final)))
+)
+
+(defrule answer_AirGenasi ""
+    (logical (GeniesAreElemental WeAllFloat))
+    =>
+    (assert (UI-state (display AirGenasiMessage)
+                      (relation-asserted AirGenasi)
+                      (state final)))
+)
+
+(defrule answer_WaterGenasi ""
+    (logical (GeniesAreElemental Aquaman))
+    =>
+    (assert (UI-state (display WaterGenasiMessage)
+                      (relation-asserted WaterGenasi)
+                      (state final)))
+)
+
+(defrule answer_gith ""
+    (logical (MultiverseDwelling OkayThatsPretty))
+    =>
+    (assert (UI-state (display GithMessage)
+                      (relation-asserted Gith)
+                      (valid-answers ExplodeHeads)
+                      (state final)))
+)
+
+(defrule choose_GithComeInTwoFlavors ""
+    (logical (Gith ExplodeHeads))
+    =>
+    (assert (UI-state (display GithComeInTwoFlavorsMessage)
+                      (relation-asserted GithComeInTwoFlavors)
+                      (valid-answers WeAreImmortal ZenKungFu)))
+)
+
+(defrule answer_githyanki ""
+    (logical (GithComeInTwoFlavors WeAreImmortal))
+    =>
+    (assert (UI-state (display GithyankiMessage)
+                      (relation-asserted Githyanki)
+                      (state final)))
+)
+
+(defrule answer_githzerai ""
+    (logical (GithComeInTwoFlavors ZenKungFu))
+    =>
+    (assert (UI-state (display GithzeraiMessage)
+                      (relation-asserted Githzerai)
+                      (state final)))
+)
+
+(defrule answer_vedalken ""
+    (logical (HairlessVulcan Fine))
+    =>
+    (assert (UI-state (display VedalkenMessage)
+                      (relation-asserted Vedalken)
+                      (state final)))
+)
+
+(defrule answer_SimicHybrid ""
+    (logical (TentaclesAndMutations ThisIsWhatImTalkingAbout))
+    =>
+    (assert (UI-state (display SimicHybridMessage)
+                      (relation-asserted SimicHybrid)
+                      (state final)))
+)
+
+(defrule answer_Kalashtar ""
+    (logical (TentaclesAndMutations Mysterious))
+    =>
+    (assert (UI-state (display KalashtarMessage)
+                      (relation-asserted Kalashtar)
+                      (valid-answers IDontKnowWhatThisIs)
+                      (state final)))
+)
+
+(defrule answer_BanningYou ""
+    (logical (Kalashtar IDontKnowWhatThisIs))
+    =>
+    (assert (UI-state (display BanningYouMessage)
+                      (relation-asserted BanningYou)
+                      (state final)))
+)
+
 
 ;;;*************************
 ;;;* GUI INTERACTION RULES *
