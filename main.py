@@ -1,6 +1,8 @@
 import clips
 from tkinter import *
 
+max_number_of_buttons = 6 # Set an initial maximum number of buttons
+
 def get_properties(name):
     return properties[name]
 
@@ -9,29 +11,26 @@ def get_current_id():
     curr_id = str(clips_env.eval(eval_str)[0]['current'])
     return curr_id
 
-def get_curret_UIstate():
+def get_current_UIstate():
     curr_id = get_current_id()
     eval_str = '(find-all-facts ((?f UI-state)) ' + '(eq ?f:id ' + curr_id + '))'
     UIstate = clips_env.eval(eval_str)[0]
     return UIstate
 
-def update_textes(start=False):
-    UIstate = get_curret_UIstate()
+def update_buttons():
+    UIstate = get_current_UIstate()
     valid_answers = UIstate['valid-answers']
-    answers_amount = len(valid_answers)
-    answer_button_amount = 0
 
-    for id, text in enumerate(all_textes):
-        if id + 1 <= answers_amount:
-            text.set(get_properties(str(valid_answers[id])))
-            if not start:
-                all_buttons[id].grid(row=id + 1, column=answers_amount)
-                answer_button_amount += 1
+    for id, text_var in enumerate(all_text_vars):
+        if id < len(valid_answers):
+            text_var.set(get_properties(str(valid_answers[id])))
+            all_buttons[id].grid(row=id + 1, column=0)
         else:
-            text.set('')
-            if not start:
-                all_buttons[id].grid_remove()
+            text_var.set('')
+            all_buttons[id].grid_remove()
 
+def update_textes(start=False):
+    UIstate = get_current_UIstate()
     state = str(UIstate['state'])
 
     if state == 'initial':
@@ -49,15 +48,16 @@ def update_textes(start=False):
         else:
             question.configure(textvariable=text_question, padx=1, pady=7, bg='#F5F5DC', fg='#FFA500', font='Helvetica 12 bold', bd=1, relief=FLAT)
 
+    update_buttons()
+
     if not start:
-        question.grid(row=0, column=0, columnspan=answers_amount + 1)
-        empty_space.grid(row=answers_amount + 2, column=0, columnspan=answers_amount + 1)
-        empty_space.grid(row=answers_amount + 2, column=0, columnspan=answers_amount + 1)
-        button_back.grid(row=answers_amount + 3, column=0, columnspan=answers_amount + 1)
+        question.grid(row=0, column=0)
+        empty_space.grid(row=len(all_text_vars) + 1, column=0)
+        button_back.grid(row=len(all_text_vars) + 2, column=0, sticky='we')
 
 def ans_button_command(id):
     curr_id = get_current_id()
-    UIstate = get_curret_UIstate()
+    UIstate = get_current_UIstate()
     valid_answers = UIstate['valid-answers']
     answer = valid_answers[id]
     clips_env._facts.assert_string('(next ' + curr_id + ' ' + answer + ')')
@@ -65,7 +65,7 @@ def ans_button_command(id):
     update_textes()
 
 def back_button_command():
-    UIstate = get_curret_UIstate()
+    UIstate = get_current_UIstate()
     state = str(UIstate['state'])
     curr_id = get_current_id()
 
@@ -97,16 +97,8 @@ if __name__ == '__main__':
 
     properties = {}
 
-    text_button1 = StringVar()
-    text_button2 = StringVar()
-    text_button3 = StringVar()
-    text_button4 = StringVar()
-    text_button5 = StringVar()
-    text_button6 = StringVar()
     text_button_back = StringVar()
     text_question = StringVar()
-
-    all_textes = [text_button1, text_button2, text_button3, text_button4 ,text_button5, text_button6]
 
     file = open('asnwers.txt', 'r')
     data = file.readlines()
@@ -116,6 +108,17 @@ if __name__ == '__main__':
         properties[name] = full_name
 
     file.close()
+
+    all_text_vars = []
+    all_buttons = []
+
+    for _ in range(max_number_of_buttons):
+        text_var = StringVar()
+        all_text_vars.append(text_var)
+        button = Button(root, textvariable=text_var, width=90, padx=2, pady=2, command=lambda i=_: ans_button_command(i), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
+        all_buttons.append(button)
+        button.grid_remove()
+
     update_textes(start=True)
 
     root.title('What Race Should I Play')
@@ -123,20 +126,10 @@ if __name__ == '__main__':
     question = Label(root, textvariable=text_question, pady=7, bg='#F5F5DC', fg='#FFA500', font='Helvetica 12 bold')
     empty_space = Label(root, text='', bg='#F5F5DC', height=2)
 
-    button_ans1 = Button(root, textvariable=text_button1, width=90, padx=2, pady=2, command=lambda: ans_button_command(0), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
-    button_ans2 = Button(root, textvariable=text_button2, width=90, padx=2, pady=2, command=lambda: ans_button_command(1), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
-    button_ans3 = Button(root, textvariable=text_button3, width=90, padx=2, pady=2, command=lambda: ans_button_command(2), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
-    button_ans4 = Button(root, textvariable=text_button4, width=90, padx=2, pady=2, command=lambda: ans_button_command(3), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
-    button_ans5 = Button(root, textvariable=text_button5, width=90, padx=2, pady=2, command=lambda: ans_button_command(4), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
-    button_ans6 = Button(root, textvariable=text_button6, width=90, padx=2, pady=2, command=lambda: ans_button_command(5), borderwidth=3, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
-
-    button_back = Button(root, textvariable=text_button_back, width=90, padx=2, pady=2, command=lambda: back_button_command(), borderwidth=4, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
-
-    all_buttons = [button_ans1, button_ans2, button_ans3, button_ans4 , button_ans5, button_ans6]
+    button_back = Button(root, textvariable=text_button_back, width=90, padx=2, pady=2, command=back_button_command, borderwidth=4, activebackground='#9ada7d', bg='#0099cc', fg='#0b0b0b', font='Helvetica 10 bold')
 
     question.grid(row=0, column=0)
     empty_space.grid(row=1, column=0)
-    empty_space.grid(row=2, column=0)
-    button_back.grid(row=3, column=0, sticky='we')
+    button_back.grid(row=2, column=0, sticky='we')
 
     root.mainloop()
